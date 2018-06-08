@@ -57,7 +57,7 @@ func (ee *errs) IsEmpty() bool {
 	return len(ee.all) == 0
 }
 
-// Implement the error interface for errors.
+// Implement the error interface for errs.
 func (ee *errs) Error() string {
 	errorStr := ""
 	for _, err := range ee.All() {
@@ -67,7 +67,7 @@ func (ee *errs) Error() string {
 	return errorStr
 }
 
-// Safely append to the []error in errors struct.
+// Safely append to the []error in errs struct.
 func (ee *errs) append(err error) {
 	ee.mutex.Lock()
 	defer ee.mutex.Unlock()
