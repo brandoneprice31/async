@@ -4,6 +4,12 @@
 Makes multiple concurrent functions calls and collects the errors.
 
 ```
+func main() {
+  if err := UploadAndDownload(); err != nil {
+    panic(err)
+  }
+}
+
 func UploadAndDownload() error {
   api := Connect()
 
@@ -28,11 +34,7 @@ func UploadAndDownload() error {
     },
   )
 
-  if !errs.IsEmpty() {
-    return errs.ToError()
-  }
-
   fmt.Println("email:", email)
-  return nil
+  return errs.ToError()
 }
 ```
