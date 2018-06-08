@@ -31,6 +31,7 @@ func UploadAndDownload() error {
       }
 
       email = user.Email
+      return nil
     },
   )
 
