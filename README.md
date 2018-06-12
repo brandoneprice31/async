@@ -5,7 +5,7 @@ async - go package that makes concurrency easier
 Installation
 ================
 
-To install assert, use `go get`:
+To install async, use `go get`:
 
     go get github.com/brandoneprice31/async
 
@@ -55,7 +55,7 @@ func UploadAndDownload() error {
     },
 
     func() error {
-      user, err = api.Get(Request{
+      user, err := api.Get(Request{
         ID: 1234,
       })
       if err != nil {
