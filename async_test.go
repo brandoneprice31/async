@@ -2,6 +2,7 @@ package async
 
 import (
 	"errors"
+	"sync"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -10,17 +11,25 @@ import (
 func TestParallel(t *testing.T) {
 	// Test no errors.
 	x := 0
+	m := sync.Mutex{}
 	ee := Parallel(
 		func() error {
+			m.Lock()
+			defer m.Unlock()
 			x++
 			return nil
 		},
 
 		func() error {
+			m.Lock()
+			defer m.Unlock()
 			x += 2
 			return nil
 		},
+
 		func() error {
+			m.Lock()
+			defer m.Unlock()
 			x += 3
 			return nil
 		},
@@ -32,12 +41,10 @@ func TestParallel(t *testing.T) {
 	y := 0
 	ee = Parallel(
 		func() error {
-			y++
 			return errors.New("error 1")
 		},
 
 		func() error {
-			y++
 			return errors.New("error 2")
 		},
 
@@ -49,5 +56,5 @@ func TestParallel(t *testing.T) {
 	assert.False(t, ee.IsEmpty())
 	assert.Equal(t, 3, len(ee.All()))
 	assert.NotNil(t, ee.ToError())
-	assert.Equal(t, 1, y)
+	assert.Equal(t, -1, y)
 }
