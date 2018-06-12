@@ -26,10 +26,14 @@ func main() {
 ------
 Parallel
 ============
+
 ```go
 func Parallel(...func() error) Errors
 ```
-Makes multiple concurrent functions calls and collects the errors.
+
+Makes multiple parallel functions calls and collects their returned errors safely.  Each argument is a function that returns an error.  The returned object contains all of the errors that were returned by these arguments.
+
+Parallel doesn't guarantee the synchronization of shared memory between the functions being called.  Therefore all variables being shared by these functions need to make use of go sync primitives like channels or mutex locks.
 
 ```go
 func main() {
