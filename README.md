@@ -1,9 +1,34 @@
-# async
+async - go package that makes concurrency easier
+==================================================
 
-### Parallel
+------
+Installation
+================
+
+To install assert, using `go get`:
+
+    go get github.com/brandoneprice31/async
+
+Import the `async` package into your code like so:
+
+```go
+package main
+
+import (
+  "github.com/brandoneprice31/async"
+)
+
+func main() {
+  async.Parallel()
+}
+```
+
+------
+Parallel
+============
 Makes multiple concurrent functions calls and collects the errors.
 
-```
+```go
 func main() {
   if err := UploadAndDownload(); err != nil {
     panic(err)
